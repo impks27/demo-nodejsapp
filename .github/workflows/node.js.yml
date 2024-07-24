@@ -48,7 +48,7 @@ jobs:
     - uses: actions/download-artifact@v4
       with:
         name: demo-nodejsapp-cache
-        path: node_modules.zip
+        #path: node_modules.zip
     - name: Display structure of downloaded files
       run: ls -la
     - name: Restore cache
