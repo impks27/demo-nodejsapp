@@ -44,12 +44,18 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
+    - uses: actions/checkout@v4
     - uses: actions/download-artifact@v4
       with:
         name: demo-nodejsapp-cache
         path: node_modules.zip
     - name: Display structure of downloaded files
       run: ls -la
+    - name: Restore cache
+      run: |
+        unzip -d node_modules node_modules.zip
+        ls -la
+        ls -la node_modules
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
       with:
