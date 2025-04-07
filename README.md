@@ -190,3 +190,13 @@ jobs:
 - **Cache Paths:** Adjust the paths to `node_modules` based on your project's structure.
 
 This setup ensures that dependencies are cached and restored efficiently, speeding up the build and test processes for multi-module Node.js projects managed by npm.
+- name: Update submodules (recursive, remote) and clean up credentials
+  run: |
+    # Inject GitHub App token for submodule access
+    git config url."https://x-access-token:${{ steps.generate-token.outputs.token }}@github.com/".insteadOf "https://github.com/"
+
+    # Update submodules to latest remote commits
+    git submodule update --remote --recursive
+
+    # Clean up the Git config
+    git config --unset url."https://x-access-token:${{ steps.generate-token.outputs.token }}@github.com/".insteadOf
